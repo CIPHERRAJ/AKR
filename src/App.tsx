@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { auth } from './firebase';
 import { signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth';
-import { Calculator, Send, TrendingUp, Info, Gem, Sparkles, Lock, ArrowRight, User } from 'lucide-react';
+import { Calculator, Send, TrendingUp, Info, Sparkles, Lock, ArrowRight, User } from 'lucide-react';
 
 interface CalculationResult {
   metalCost: number;
