@@ -77,15 +77,56 @@ function App() {
 
   const fetchRates = async () => {
     setIsFetchingRates(true);
+    
+    const proxies = [
+      {
+        name: 'AllOrigins',
+        url: (target: string) => `https://api.allorigins.win/get?url=${encodeURIComponent(target)}`,
+        isJson: true
+      },
+      {
+        name: 'CodeTabs',
+        url: (target: string) => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(target)}`,
+        isJson: false
+      },
+      {
+        name: 'CorsProxy',
+        url: (target: string) => `https://corsproxy.io/?${encodeURIComponent(target)}`,
+        isJson: false
+      }
+    ];
+
     try {
-      // SECURITY WARNING: This uses a public CORS proxy. Do not send sensitive data.
-      // Switched to api.codetabs.com as corsproxy.io was returning 403
-      const response = await fetch('https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent('https://kjpl.in/'));
-      if (!response.ok) throw new Error('Network response was not ok');
-      const htmlText = await response.text();
+      let htmlContent = '';
+      let success = false;
+
+      for (const proxy of proxies) {
+        try {
+          console.log(`Attempting to fetch rates via ${proxy.name}...`);
+          const response = await fetch(proxy.url('https://kjpl.in/'));
+          
+          if (!response.ok) throw new Error(`Status ${response.status}`);
+          
+          if (proxy.isJson) {
+            const data = await response.json();
+            htmlContent = data.contents;
+          } else {
+            htmlContent = await response.text();
+          }
+
+          if (htmlContent) {
+            success = true;
+            break; // Stop if successful
+          }
+        } catch (err) {
+          console.warn(`Failed to fetch via ${proxy.name}:`, err);
+        }
+      }
+
+      if (!success) throw new Error('All proxies failed to fetch rates.');
 
       const parser = new DOMParser();
-      const doc = parser.parseFromString(htmlText, 'text/html');
+      const doc = parser.parseFromString(htmlContent, 'text/html');
 
       // Find all tables that might contain the rate
       const tables = doc.querySelectorAll('table');
