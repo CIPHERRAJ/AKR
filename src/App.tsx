@@ -79,13 +79,13 @@ function App() {
     setIsFetchingRates(true);
     try {
       // SECURITY WARNING: This uses a public CORS proxy. Do not send sensitive data.
-      // Switched to HTTPS to prevent mixed content warnings. 
-      const response = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://kjpl.in/'));
+      // Switched to corsproxy.io for better reliability
+      const response = await fetch('https://corsproxy.io/?' + encodeURIComponent('https://kjpl.in/'));
       if (!response.ok) throw new Error('Network response was not ok');
-      const data = await response.json();
+      const htmlText = await response.text();
 
       const parser = new DOMParser();
-      const doc = parser.parseFromString(data.contents, 'text/html');
+      const doc = parser.parseFromString(htmlText, 'text/html');
 
       // Find all tables that might contain the rate
       const tables = doc.querySelectorAll('table');

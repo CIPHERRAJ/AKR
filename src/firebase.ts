@@ -2,13 +2,13 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyD13NALWfcRdUEbESc5YkP0S509NS5ZkpI",
-    authDomain: "akr-jewllery.firebaseapp.com",
-    projectId: "akr-jewllery",
-    storageBucket: "akr-jewllery.firebasestorage.app",
-    messagingSenderId: "460103902164",
-    appId: "1:460103902164:web:7fcb5f163d9574f8d92c41",
-    measurementId: "G-DRLTGENE04"
+    apiKey: "AIzaSyD663C4LxU839Neqct0zESRODq6M4-IUuI",
+    authDomain: "vimal-fb94e.firebaseapp.com",
+    projectId: "vimal-fb94e",
+    storageBucket: "vimal-fb94e.firebasestorage.app",
+    messagingSenderId: "168626553210",
+    appId: "1:168626553210:web:5cbeaf1d9c348845f116c3",
+    measurementId: "G-23B6791Z1G"
 };
 
 // Initialize Firebase
