@@ -79,8 +79,8 @@ function App() {
     setIsFetchingRates(true);
     try {
       // SECURITY WARNING: This uses a public CORS proxy. Do not send sensitive data.
-      // Switched to corsproxy.io for better reliability
-      const response = await fetch('https://corsproxy.io/?' + encodeURIComponent('https://kjpl.in/'));
+      // Switched to api.codetabs.com as corsproxy.io was returning 403
+      const response = await fetch('https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent('https://kjpl.in/'));
       if (!response.ok) throw new Error('Network response was not ok');
       const htmlText = await response.text();
 
